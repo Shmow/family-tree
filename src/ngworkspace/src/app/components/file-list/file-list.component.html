@@ -6,14 +6,14 @@
             <div class="fw-bold">{{file.name}}</div>
             <p class="bg-light json-content-block bottom-overflow-fade my-2 p-2">
                 {{file.contents | slice:0:500}}
-                <!-- <samp class="bottom-overflow-fade">{{file.contents | slice:0:500}}</samp> -->
             </p>
             <div class="mx-auto"> 
                 <button type="button" class="btn btn-outline-primary" (click)="loadLoadedFile(file)">Load</button>
                 <button type="button" class="btn btn-outline-warning ms-1" (click)="deleteLoadedFile(file)">Delete</button>
             </div>
         </div>
-        <span class="badge text-bg-primary rounded-pill">{{file.sizeKb.toFixed(2)}} kb</span>
+        <span class="badge rounded-pill bg-info me-2"><small>{{ toDateString(file.date) }}</small></span>
+        <span class="badge rounded-pill bg-dark">{{file.sizeKb.toFixed(2)}} kb</span>
     </li>
     }
 

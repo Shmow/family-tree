@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FileLoaderComponent } from '../file-loader/file-loader.component';
 import { SlicePipe } from '@angular/common';
 
@@ -8,10 +8,16 @@ import { SlicePipe } from '@angular/common';
   templateUrl: './file-list.component.html',
   styleUrl: './file-list.component.scss'
 })
-export class FileListComponent {
+export class FileListComponent implements OnInit {
   @Output() loadJsonData = new EventEmitter<string>();
 
+  private lsKey = "family-tree-file-list";
+
   files: LoadedFile[] = [];
+
+  ngOnInit(): void {
+    this.initFromLocalStorage();
+  }
 
   fileLoaded(file: File) {
     var reader = new FileReader();
@@ -24,6 +30,7 @@ export class FileListComponent {
 
         let loadedFile = new LoadedFile(file.name, contents, size);
         this.files.push(loadedFile);
+        this.saveToLocalStorage();
       };
     }
   }
@@ -38,10 +45,28 @@ export class FileListComponent {
       this.files.splice(indx, 1);
     }
   }
+
+  toDateString(dateNr: number) {
+    let date = new Date(dateNr);
+    return `${date.toLocaleDateString()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem(this.lsKey, JSON.stringify(this.files));
+  }
+
+  initFromLocalStorage() {
+    const lsVal = localStorage.getItem(this.lsKey);
+
+    if (lsVal) {
+      this.files = JSON.parse(lsVal);
+    }
+  }
 }
 
 export class LoadedFile {
   name: string;
+  date: number;
   contents: string;
   sizeKb: number;
 
@@ -49,5 +74,6 @@ export class LoadedFile {
     this.name = name;
     this.contents = contents;
     this.sizeKb = sizeKb;
+    this.date = Date.now();
   }
 }
