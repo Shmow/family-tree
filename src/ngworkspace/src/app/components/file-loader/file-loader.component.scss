@@ -1,0 +1,13 @@
+.file-drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+.file-drop-zone.file-over {
+    background-color: lightblue;
+}
+
+.file-drop-zone:hover {
+    background-color: lightgray;
+}
