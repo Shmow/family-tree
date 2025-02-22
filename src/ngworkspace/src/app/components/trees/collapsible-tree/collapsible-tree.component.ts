@@ -39,8 +39,7 @@ export class CollapsibleTreeComponent implements OnInit {
       .attr("width", "100%")
       .attr("height", this.height + this.margin.top + this.margin.bottom)
       .append("g")
-      .attr("transform", "translate("
-        + this.margin.left + "," + this.margin.top + ")") as any;
+      .attr("transform", `translate(${this.margin.left},${this.margin.top})`) as any;
   }
 
   private createRootNode() {
