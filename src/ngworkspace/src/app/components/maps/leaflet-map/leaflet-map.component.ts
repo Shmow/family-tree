@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { LeafletMapService } from '../../../services/leaflet-map.service';
 
@@ -9,7 +9,7 @@ import { LeafletMapService } from '../../../services/leaflet-map.service';
   templateUrl: './leaflet-map.component.html',
   styleUrl: './leaflet-map.component.scss'
 })
-export class LeafletMapComponent implements AfterViewInit {
+export class LeafletMapComponent implements OnInit, AfterViewInit {
   private map: any;
 
   private initMap(): void {
@@ -30,6 +30,17 @@ export class LeafletMapComponent implements AfterViewInit {
   }
 
   constructor(private leafletMapService: LeafletMapService) { }
+  
+  ngOnInit(): void {
+    let DefaultIcon = L.icon({
+      iconUrl: `assets/marker-icon.png`,
+      shadowUrl: `assets/marker-shadow.png`,
+      iconSize: [24, 36],
+      iconAnchor: [12, 36]
+    });
+
+    L.Marker.prototype.options.icon = DefaultIcon;
+  }
 
   ngAfterViewInit(): void {
     this.initMap();
