@@ -1,0 +1,23 @@
+<ul class="list-group">
+    @for (file of files; track file.name) {
+
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+            <div class="fw-bold">{{file.name}}</div>
+            <p class="bg-light json-content-block bottom-overflow-fade my-2 p-2">
+                {{file.contents | slice:0:500}}
+                <!-- <samp class="bottom-overflow-fade">{{file.contents | slice:0:500}}</samp> -->
+            </p>
+            <div class="mx-auto"> 
+                <button type="button" class="btn btn-outline-primary" (click)="loadLoadedFile(file)">Load</button>
+                <button type="button" class="btn btn-outline-warning ms-1" (click)="deleteLoadedFile(file)">Delete</button>
+            </div>
+        </div>
+        <span class="badge text-bg-primary rounded-pill">{{file.sizeKb.toFixed(2)}} kb</span>
+    </li>
+    }
+
+    <li class="list-group-item">
+        <app-file-loader (fileLoaded)="fileLoaded($event)"></app-file-loader>
+    </li>
+</ul>

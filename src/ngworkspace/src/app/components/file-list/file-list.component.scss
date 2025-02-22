@@ -1,0 +1,10 @@
+.json-content-block {
+    white-space: pre;
+    min-width: 500px;
+    max-height: 500px;
+}
+
+.bottom-overflow-fade {
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
